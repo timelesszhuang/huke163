@@ -35,7 +35,7 @@ class HuKe163
         if (!is_array($arguments[0] ?? [])) {
             throw new \qiangbi\huke163\ClientException('参数错误', 1);
         }
-        return $this->post($url, $arguments[0] ?? []);
+        return $this->post("/" . $url, $arguments[0] ?? []);
     }
 
     /**
