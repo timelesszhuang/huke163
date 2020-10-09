@@ -1,6 +1,6 @@
 <?php
 
-namespace Qiangbi\huke163;
+namespace qiangbi\huke163;
 
 
 class HuKe163
