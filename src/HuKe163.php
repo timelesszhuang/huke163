@@ -2,6 +2,8 @@
 
 namespace qiangbi\huke163;
 
+use qiangbi\huke163\ClientException;
+use qiangbi\huke163\ServerException;
 
 class HuKe163
 {
@@ -20,10 +22,19 @@ class HuKe163
         $this->appSecret = $config['appSecret'] ?? $config_env['appSecret'];
     }
 
+    /**
+     * @param string $name
+     * @param array $arguments
+     * @return mixed
+     * @throws \qiangbi\huke163\ClientException
+     */
     public function __call(string $name, array $arguments)
     {
         $urlArray = explode('_', $name);
         $url = implode('/', $urlArray);
+        if (!is_array($arguments[0] ?? [])) {
+            throw new \qiangbi\huke163\ClientException('参数错误', 1);
+        }
         return $this->post($url, $arguments[0] ?? []);
     }
 
@@ -31,6 +42,8 @@ class HuKe163
      * @param string $url
      * @param array $post
      * @return mixed
+     * @throws \qiangbi\huke163\ClientException
+     * @throws \qiangbi\huke163\ServerException
      */
     private function post(string $url, array $post)
     {
@@ -55,8 +68,13 @@ class HuKe163
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         if ($code == 200) {
-            return $data;
+            if($data['code'] == 200){
+                return $data;
+            }else{
+                throw new \qiangbi\huke163\ClientException($data['msg'], $data['code']);
+            }
+        }else{
+            throw new \qiangbi\huke163\ServerException('服务器相应失败', $code);
         }
-        return $code;
     }
 }
