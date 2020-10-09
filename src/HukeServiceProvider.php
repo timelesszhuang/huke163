@@ -37,7 +37,6 @@ class HukeServiceProvider extends ServiceProvider
     {
         $configPath = realpath(__DIR__ . '/../config/huke.php');
         $this->mergeConfigFrom($configPath, 'huke');
-        $this->publishes([$configPath => config_path('huke.php')], 'config');
     }
 
 
