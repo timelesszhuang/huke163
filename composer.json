@@ -26,5 +26,6 @@
                 "qiangbi\\huke163\\HukeServiceProvider"
             ]
         }
-    }
+    },
+    "minimum-stability": "dev"
 }
