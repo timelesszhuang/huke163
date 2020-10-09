@@ -74,7 +74,7 @@ class HuKe163
                 throw new \qiangbi\huke163\ClientException($data['msg'], $data['code']);
             }
         }else{
-            throw new \qiangbi\huke163\ServerException('服务器相应失败', $code);
+            throw new \qiangbi\huke163\ServerException('服务器拒绝,请检查配置信息', $code);
         }
     }
 }
