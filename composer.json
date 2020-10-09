@@ -1,0 +1,29 @@
+{
+    "name": "qiangbi/huke163",
+    "type": "library",
+    "authors": [
+        {
+            "name": "jingyang",
+            "email": "linshuboy@qq.com"
+        }
+    ],
+    "description" : "",
+    "require": {
+        "php": ">=7.0.0",
+        "ext-curl": "*",
+        "ext-openssl": "*",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "qiangbi\\huke163\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "qiangbi\\huke163\\HukeServiceProvider"
+            ]
+        }
+    }
+}
