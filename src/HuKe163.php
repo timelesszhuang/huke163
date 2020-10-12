@@ -68,13 +68,17 @@ class HuKe163
         $code = curl_getinfo($curl, CURLINFO_HTTP_CODE);
         curl_close($curl);
         if ($code == 200) {
-            if($data['code'] == 200){
+            $dataArray = json_decode($data, 1);
+            if ($dataArray['code'] == 200) {
                 return $data;
-            }else{
-                throw new \qiangbi\huke163\ClientException($data['msg'], $data['code']);
+            } else {
+                if($dataArray['code'] == 1011 && $url == '/customer/addCustomer'){
+                    return $data;
+                }
+                throw new \qiangbi\huke163\ClientException($dataArray['msg'], $dataArray['code']);
             }
-        }else{
-            throw new \qiangbi\huke163\ServerException('服务器拒绝,请检查配置信息', $code);
+        } else {
+            throw new \qiangbi\huke163\ServerException('服务器响应失败', $code);
         }
     }
 }
